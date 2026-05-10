@@ -67,3 +67,15 @@
     mltShdSpin 1.7s infinite ease,
     round 1.7s infinite ease;
 }
+
+.hidden {
+  display: none;
+}
+
+.load-more {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
