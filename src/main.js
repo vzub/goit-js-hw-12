@@ -56,9 +56,16 @@ form.addEventListener("submit", async (e) => {
 
     createGallery(data.hits);
 
-    if (totalHits > 15) {
-      showLoadMoreButton();
-    }
+const totalPages = Math.ceil(totalHits / 15);
+
+if (totalPages > 1) {
+  showLoadMoreButton();
+} else {
+  iziToast.info({
+    message: "We're sorry, but you've reached the end of search results.",
+    position: "topRight",
+  });
+}
   } catch (error) {
     iziToast.error({
       message: "Something went wrong. Try again later.",
@@ -73,7 +80,7 @@ form.addEventListener("submit", async (e) => {
 
 loadMoreBtn.addEventListener("click", async () => {
   page += 1;
-
+ hideLoadMoreButton();
   showLoader();
 
   try {
@@ -84,13 +91,13 @@ loadMoreBtn.addEventListener("click", async () => {
     const totalPages = Math.ceil(totalHits / 15);
 
     if (page >= totalPages) {
-      hideLoadMoreButton();
-
-      iziToast.info({
-        message: "We're sorry, but you've reached the end of search results.",
-        position: "topRight",
-      });
-    }
+  iziToast.info({
+    message: "We're sorry, but you've reached the end of search results.",
+    position: "topRight",
+  });
+} else {
+  showLoadMoreButton();
+}
 
     const card = document
       .querySelector(".gallery-item")
